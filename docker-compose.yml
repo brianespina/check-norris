@@ -1,8 +1,9 @@
 services:
   app:
-    image: check-norris
     build: .
+    container_name: check-norris
     volumes:
       - .:/app
     tty: true
+
 
