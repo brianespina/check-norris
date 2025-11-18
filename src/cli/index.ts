@@ -16,9 +16,13 @@ program
   .argument("<url>", "Root website URL")
   .option("-m, --max <number>", "Maximum pages to crawl", "50")
   .action(async (url, options) => {
-    const pages = await crawlSite(url, parseInt(options.max));
+    const result = await crawlSite(url, parseInt(options.max));
     console.log("\n📍 Pages Found:");
-    pages.forEach((p) => console.log(" - " + p));
+    result.pages.forEach((p) => {
+      console.log("URL:" + p.url + "\n");
+      console.log("Status:" + p.status + "\n");
+      console.log("Title:" + p.title + "\n\n");
+    });
   });
 
 program.parse();

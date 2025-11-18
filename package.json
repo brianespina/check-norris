@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/brianespina/check-norris.git"
   },
-  "bin":{
+  "bin": {
     "check-norris": "./dist/cli/index.js"
   },
   "keywords": [],
@@ -31,6 +31,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "chalk": "^5.6.2",
     "commander": "^14.0.2",
     "looks-same": "^10.0.1",
     "playwright": "^1.56.1"
