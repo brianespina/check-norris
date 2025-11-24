@@ -22,6 +22,7 @@ program
       console.log("URL:" + p.url + "\n");
       console.log("Status:" + p.status + "\n");
       console.log("Title:" + p.title + "\n\n");
+      console.log(p.phone);
     });
   });
 

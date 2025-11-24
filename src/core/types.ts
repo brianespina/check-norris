@@ -1,7 +1,9 @@
+import type { Phone } from "../scanners/business/types.js";
+
 export interface CrawledPage {
   url: string;
   status: number;
-  html: string;
+  phone: Phone[];
   title?: string;
 }
 

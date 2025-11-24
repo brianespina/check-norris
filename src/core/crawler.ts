@@ -1,4 +1,5 @@
 import type { CrawledPage, CrawlResult } from "./types.js";
+import { extract_phone } from "../scanners/business/extract.js";
 import { chromium } from "playwright";
 
 export async function crawlSite(
@@ -19,6 +20,7 @@ export async function crawlSite(
     if (visited.has(url)) continue;
 
     try {
+      const page = await context.newPage(); // ← moved INSIDE LOOP
       const response = await page.goto(url, { waitUntil: "networkidle" });
       visited.add(url);
       console.log(`🕷 Crawled: ${url}`);
@@ -26,25 +28,29 @@ export async function crawlSite(
       const html = await page.content();
       const title = await page.title();
       const status = response?.status() ?? 0;
+      const phone = extract_phone(html);
+
       pages.push({
         url,
         status,
+        phone,
         title,
-        html,
       });
 
-      //get links here. add in queue
       const links = await page.$$eval("a[href]", (as) =>
         as.map((a) => (a as HTMLAnchorElement).href),
       );
 
+      // Add links to queue
       links.forEach((link) => {
         if (link.startsWith(origin) && !visited.has(link)) {
           queue.push(link);
         }
       });
-    } catch {
-      console.warn(`Error loading page ${url}`);
+
+      await page.close(); // close page to avoid memory leaks
+    } catch (err) {
+      console.warn(`Error loading page ${url}`, err);
     }
   }
 
