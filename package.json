@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "chalk": "^5.6.2",
+    "cheerio": "^1.1.2",
     "commander": "^14.0.2",
     "looks-same": "^10.0.1",
     "playwright": "^1.56.1"
